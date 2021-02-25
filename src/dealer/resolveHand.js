@@ -1,34 +1,79 @@
-const order = "23456789TJQKA";
-
-// We are using the index number to refer as the ranking
-const rankings = ['',
-    'HIGH_CARD',
-    'ONE_PAIR',
-    'TWO_PAIR',
-    'THREE_OF_A_KIND',
-    'STRAIGHT',
-    'FLUSH',
-    'FULL_HOUSE',
-    'FOUR_OF_A_KIND',
-    'STRAIGHT_FLUSH',
-    'ROYAL_FLUSH' ]
-
 /**
- * This module will analyze an array of string
- * to validate and resolve the poker hand with the name, value and ranking
+ * This module take an array of cards and the player
+ * convert array of poker hands consists of 5 cards per each player
+ * @param hand {array} a strings in the form of 'KH 6D 6S TH TD AC JS QC 7D 5C'
+ * @returns {Object}
+ *  {
+        player: {String}, // name of the player
+        rank: {number},   // rank of the hand to compare
+        value: {string}   // value of the hand for tie break
+        name: {String},   // name of the hand
+            HIGH_CARD,
+            ONE_PAIR,
+            TWO_PAIR,
+            THREE_OF_A_KIND,
+            STRAIGHT,
+            FLUSH,
+            FULL_HOUSE,
+            FOUR_OF_A_KIND,
+            STRAIGHT_FLUSH,
+            ROYAL_FLUSH
+    }
  *
+ *  Faces:
+ *      2 -> 2,
+ *      3 -> 3,
+ *      4 -> 4,
+ *      5 -> 5,
+ *      6 -> 6,
+ *      7 -> 7,
+ *      8 -> 8,
+ *      9 -> 9,
+ *      10 -> T,
+ *      Jack -> J,
+ *      Queen -> Q,
+ *      King -> K,
+ *      Ace -> A
  *
- * @param {Array} [array] The array to iterate over. e.g. ['4H', '4C', '6S', '7S', 'KD']
- * @returns {Object} Returns the sanitised and resolved PokerHand as per below.
- * {
- *     name: {String} of type 'HIGH_CARD', 'ONE_PAIR', 'TWO_PAIR', 'THREE_OF_A_KIND', 'STRAIGHT', 'FLUSH', 'FULL_HOUSE',
- *                            'FOUR_OF_A_KIND', 'STRAIGHT_FLUSH', 'ROYAL_FLUSH'
- *     rank: {Number} 1-9
- *     value: {Number} grouped and sorted face values joined together to decide the highest value when compared
- * }
+ *   Suits:
+ *      Diamonds -> D,
+ *      Hearts   -> H
+ *      Spades   -> S
+ *      Clubs    -> C
+ *
+ *    Values:
+ *      2 -> 10,
+ *      3 -> 11,
+ *      4 -> 12,
+ *      5 -> 13,
+ *      6 -> 14,
+ *      7 -> 15,
+ *      8 -> 16,
+ *      9 -> 17,
+ *      10 -> 18,
+ *      Jack -> 19,
+ *      Queen -> 20,
+ *      King -> 21,
+ *      Ace -> 22
  */
 
 function resolveHand(hand, player) {
+
+    // Order to determine the face value
+    const order = "23456789TJQKA";
+
+    // We are using the index number to refer as the ranking
+    const rankings = ['',
+        'HIGH_CARD',
+        'ONE_PAIR',
+        'TWO_PAIR',
+        'THREE_OF_A_KIND',
+        'STRAIGHT',
+        'FLUSH',
+        'FULL_HOUSE',
+        'FOUR_OF_A_KIND',
+        'STRAIGHT_FLUSH',
+        'ROYAL_FLUSH' ];
 
     //Suits are: Diamonds (D), Hearts (H), Spades (S), Clubs (C)
     const suits = hand.map(a => a[1]).sort();
@@ -37,7 +82,7 @@ function resolveHand(hand, player) {
     const flush = suits[0] === suits[4];
 
     // we need to convert card faces to something comparable
-    // get a 2 digit code between 10 and 22, 10 mapping to face value '2' and 22 mapping to value 'A'
+    // get a 2 digit code between 10 and 22 for face values, 10 mapping to face value '2' and 22 mapping to value 'A'
     const faces = hand.map(a => order.indexOf(a[0]) + 10).sort();
 
     //first face value after sorted
@@ -54,7 +99,7 @@ function resolveHand(hand, player) {
     // we group the values e.g. - returns {20: 1, 22: 1, 12: 2, 14: 1} --> this is a hand with a one pair
     const counts = faces.reduce(count, {});
 
-    // this is to determine number of duplicates {1: 3, 2: 1} --> one pair and three singles
+    // this is to determine number of duplicates {1: 3, 2: 1} --> three singles and one pair
     const duplicates = Object.values(counts).reduce(count, {});
 
     const rank = (royalFlush && rankings.indexOf('ROYAL_FLUSH')) ||
@@ -68,8 +113,8 @@ function resolveHand(hand, player) {
         (duplicates[2] && rankings.indexOf('ONE_PAIR')) ||
         rankings.indexOf('HIGH_CARD');
 
-    var score = faces.sort((a, b) => b-a).sort(byCount);
-
+    //First Group and then sort in descending order to get the hand value
+    var score = faces.sort((a, b) => b - a).sort(byCount);
 
     //sort the groups first
     function byCount(a, b) {
@@ -86,7 +131,6 @@ function resolveHand(hand, player) {
         return c
     }
 
-
     return {
         player: player,
         name: rankings[rank],
@@ -94,5 +138,4 @@ function resolveHand(hand, player) {
         value: score.join("")
     };
 }
-// module.exports = getHands;
 module.exports = resolveHand;
