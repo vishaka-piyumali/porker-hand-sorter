@@ -10,12 +10,12 @@ let player2Wins = 0;
 games.forEach((game, index) => {
     const playerHands = getHands(game, 2);
 
-    var hand1 = resolveHand(playerHands[0], 'Player 1');
-    var hand2 = resolveHand(playerHands[1], 'Player 2');
+    const hand1 = resolveHand(playerHands[0], 'Player 1');
+    const hand2 = resolveHand(playerHands[1], 'Player 2');
 
     const winningHand = compareHands(hand1, hand2);
-    player1Wins = winningHand.player === 'Player 1'?player1Wins+1: player1Wins;
-    player2Wins = winningHand.player === 'Player 2'?player2Wins+1: player2Wins;
+    player1Wins = winningHand.player === 'Player 1' ? player1Wins + 1 : player1Wins;
+    player2Wins = winningHand.player === 'Player 2' ? player2Wins + 1 : player2Wins;
 
 });
 

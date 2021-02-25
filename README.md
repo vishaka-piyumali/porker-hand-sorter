@@ -1,6 +1,5 @@
 # porker-hand-sorter
 A NodeJs project to compare two poker hands
-
 ---
 ## Prerequisites
 

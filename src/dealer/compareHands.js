@@ -1,8 +1,8 @@
 /**
  * Compare two poker hands firstly based on the rank and secondly the face value
  *  in cases of comparing both hands of Royal Flush the value is same hence returns a draw
- * @param hand1 {array}
- * @param hand2 {Hand}
+ * @param hand1 {Object Hand}
+ * @param hand2 {Object Hand}
  * @returns {hand || null}
  * Hand:{
  *      player: {String},

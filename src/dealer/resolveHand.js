@@ -57,7 +57,7 @@
  *      Ace -> 22
  */
 
-function resolveHand(hand, player) {
+const resolveHand = (hand, player) => {
 
     // Order to determine the face value
     const order = "23456789TJQKA";
@@ -96,6 +96,13 @@ function resolveHand(hand, player) {
     // To determine if it is a ROYAL_FLUSH we check if it is a straight flush ending with 'A' where value is '22'
     const royalFlush = straightFlush && faces[4] === 22;
 
+    // returns an object with distinct face values and how many duplicate
+    // e.g. [20, 12, 22, 12, 14] --> {20: 1, 22: 1, 12: 2, 14: 1}
+    const count = (c, index) => {
+        c[index] = (c[index] || 0) + 1;
+        return c;
+    };
+
     // we group the values e.g. - returns {20: 1, 22: 1, 12: 2, 14: 1} --> this is a hand with a one pair
     const counts = faces.reduce(count, {});
 
@@ -113,29 +120,24 @@ function resolveHand(hand, player) {
         (duplicates[2] && rankings.indexOf('ONE_PAIR')) ||
         rankings.indexOf('HIGH_CARD');
 
-    //First Group and then sort in descending order to get the hand value
-    var score = faces.sort((a, b) => b - a).sort(byCount);
-
     //sort the groups first
-    function byCount(a, b) {
+    const byCount = (a, b) => {
         //Counts are in reverse order - bigger is better
         const countDiff = counts[b] - counts[a];
         if (countDiff) return countDiff; // If counts don't match return
         return b < a ? -1 : b === a ? 0 : 1
-    }
+    };
 
-    // returns an object with distinct face values and how many duplicate
-    // e.g. [20, 12, 22, 12, 14] --> {20: 1, 22: 1, 12: 2, 14: 1}
-    function count(c, index) {
-        c[index] = (c[index] || 0) + 1;
-        return c
-    }
+    //First Group and then sort in descending order to get the hand value
+    const score = faces.sort((a, b) => b - a).sort(byCount);
+
 
     return {
-        player: player,
+        player,
         name: rankings[rank],
-        rank: rank,
+        rank,
         value: score.join("")
     };
-}
+};
+
 module.exports = resolveHand;

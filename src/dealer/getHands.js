@@ -13,9 +13,9 @@ var _ = require('lodash');
  *
  */
 
-function getHands(cards, noOfPlayers) {
+const getHands = (cards, noOfPlayers) => {
     const allCards = cards.toUpperCase().trim().split(' ');
-    //check if the input has correct no of cards
+    // check if the input has correct no of cards we are only taking in 5 cards per hand
     if (allCards.length !== (5 * noOfPlayers)) {
         throw new Error('Incorrect hand');
     } else {
