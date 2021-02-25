@@ -22,9 +22,12 @@ https://nodejs.org/en/download/
 
 `cd porker-hand-sorter`
 
-#####Install and Run
+#####First Run
 
 `npm install && node index.js`
+
+#####Run
+`node index.js`
 
 #####Run Unit Tests
 
