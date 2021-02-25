@@ -15,7 +15,7 @@ https://nodejs.org/en/download/
 
 ## Installation
 
-#####Clone the repository to your local
+##### Clone the repository to your local
 `git clone https://github.com/vishaka-piyumali/porker-hand-sorter.git`
 
 ##### Change directory
