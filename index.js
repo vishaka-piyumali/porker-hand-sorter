@@ -1,12 +1,11 @@
 var fs = require('fs');
 
-const { getHands, compareHands, resolveHand } = require('./src/dealer');
+const { getHands, compareHands, resolveHand } = require('./src/dealer/index');
 
 const games = fs.readFileSync('./poker-hands.txt').toString().split("\n");
 
 let player1Wins = 0;
 let player2Wins = 0;
-let draws = 0;
 
 games.forEach((game, index) => {
     const playerHands = getHands(game, 2);
@@ -22,4 +21,3 @@ games.forEach((game, index) => {
 
 console.log('Player 1 wins ' + player1Wins + ' hands');
 console.log('Player 2 wins ' + player2Wins + ' hands');
-console.log('Draws ' + draws);
