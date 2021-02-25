@@ -26,6 +26,8 @@ https://nodejs.org/en/download/
 
 `npm install && node index.js`
 
+## Execution
+
 ##### Run
 `node index.js`
 
