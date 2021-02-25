@@ -1,4 +1,4 @@
-#porker-hand-sorter
+# porker-hand-sorter
 A NodeJs project to compare two poker hands
 
 ---
@@ -13,22 +13,22 @@ Recommended: `node` version 10+
 
 https://nodejs.org/en/download/
 
-##Installation
+## Installation
 
 #####Clone the repository to your local
 `git clone https://github.com/vishaka-piyumali/porker-hand-sorter.git`
 
-#####Change directory
+##### Change directory
 
 `cd porker-hand-sorter`
 
-#####First Run
+##### First Run
 
 `npm install && node index.js`
 
-#####Run
+##### Run
 `node index.js`
 
-#####Run Unit Tests
+##### Run Unit Tests
 
 `npm test`
