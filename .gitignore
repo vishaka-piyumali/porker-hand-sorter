@@ -1,0 +1,15 @@
+
+### react ###
+.DS_*
+
+node_modules
+
+coverage
+
+### Storybook code ###
+storybook-static
+.jest-test-results.json
+sonar-project.properties
+
+.idea/
+*.iml
